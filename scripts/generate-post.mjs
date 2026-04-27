@@ -294,8 +294,17 @@ Return only the markdown body.`,
   return body.trim()
 }
 
+function getPostDate() {
+  if (process.env.BACKDATE === '1') {
+    const sixMonthsMs = 180 * 24 * 60 * 60 * 1000
+    const offset = Math.floor(Math.random() * sixMonthsMs)
+    return new Date(Date.now() - offset).toISOString().slice(0, 10)
+  }
+  return new Date().toISOString().slice(0, 10)
+}
+
 function buildMdx({ title, slug, description, emoji, image, body }) {
-  const today = new Date().toISOString().slice(0, 10)
+  const today = getPostDate()
   const fm = [
     '---',
     `title: "${title.replace(/"/g, '\\"')}"`,
