@@ -345,7 +345,26 @@ async function main() {
   console.log(`✓ Wrote ${outFile}`)
 }
 
-main().catch(err => {
-  console.error('FAILED:', err)
+const COUNT = Math.max(1, parseInt(process.env.COUNT || '1', 10))
+
+async function runBatch() {
+  let ok = 0, fail = 0
+  for (let i = 1; i <= COUNT; i++) {
+    console.log(`\n========== Article ${i}/${COUNT} ==========`)
+    try {
+      await main()
+      ok++
+    } catch (err) {
+      fail++
+      console.error(`FAILED article ${i}:`, err.message || err)
+    }
+    if (i < COUNT) await new Promise(r => setTimeout(r, 1500))
+  }
+  console.log(`\n==========================================`)
+  console.log(`Batch done: ${ok} ok, ${fail} failed (of ${COUNT})`)
+}
+
+runBatch().catch(err => {
+  console.error('BATCH FAILED:', err)
   process.exit(1)
 })

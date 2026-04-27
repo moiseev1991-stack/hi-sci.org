@@ -1,0 +1,25 @@
+<svg viewBox="0 0 320 180" width="320" height="180" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bgGradient" cx="0.5" cy="0.5" r="0.75" fx="0.5" fy="0.5">
+      <stop offset="0%" style="stop-color:#003f4f;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#001e26;stop-opacity:1" />
+    </radialGradient>
+    <radialGradient id="badgeGradient" cx="0.5" cy="0.5" r="0.5" fx="0.5" fy="0.5">
+      <stop offset="0%" style="stop-color:rgba(255, 215, 0, 0.9);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:rgba(255, 215, 0, 0)" />
+    </radialGradient>
+  </defs>
+  <rect width="320" height="180" fill="url(#bgGradient)" />
+  <circle cx="160" cy="90" r="40" fill="url(#badgeGradient)" />
+  <g fill="rgba(255, 255, 255, 0.3)">
+    <circle cx="30" cy="20" r="2" />
+    <circle cx="290" cy="160" r="2" />
+    <circle cx="300" cy="25" r="1.5" />
+    <circle cx="20" cy="150" r="1.5" />
+  </g>
+  <g stroke="rgba(255, 215, 0, 0.5)" stroke-width="0.5" opacity="0.5">
+    <line x1="0" y1="0" x2="320" y2="180" />
+    <line x1="320" y1="0" x2="0" y2="180" />
+  </g>
+  <rect x="0" y="170" width="320" height="10" fill="rgba(0, 0, 0, 0.5)" />
+</svg>

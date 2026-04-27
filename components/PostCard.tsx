@@ -14,7 +14,7 @@ const THEMES: Record<string, {
 }> = {
   '🎰': {
     label: 'Sloty',
-    bg: ['#1a472a', '#2d6a4f'],
+    bg: ['#1a0d05', '#6a0723'],
     svg: (
       <svg viewBox="0 0 120 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-36 h-28">
         <rect x="20" y="15" width="80" height="70" rx="8" fill="white" fillOpacity=".12" stroke="white" strokeOpacity=".3" strokeWidth="1.5"/>
@@ -34,7 +34,7 @@ const THEMES: Record<string, {
   },
   '🪟': {
     label: 'Live Casino',
-    bg: ['#134e4a', '#0f766e'],
+    bg: ['#1a0d05', '#8e1538'],
     svg: (
       <svg viewBox="0 0 120 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-36 h-28">
         <rect x="25" y="20" width="70" height="60" rx="2" fill="white" fillOpacity=".08" stroke="white" strokeOpacity=".4" strokeWidth="1.5"/>
@@ -52,7 +52,7 @@ const THEMES: Record<string, {
   },
   '🪵': {
     label: 'Klasyka',
-    bg: ['#1b4332', '#2d6a4f'],
+    bg: ['#231410', '#5c2c0b'],
     svg: (
       <svg viewBox="0 0 120 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-36 h-28">
         <polygon points="60,12 85,45 75,45 90,68 70,68 70,88 50,88 50,68 30,68 45,45 35,45" fill="white" fillOpacity=".18" stroke="white" strokeOpacity=".4" strokeWidth="1.2"/>
@@ -69,7 +69,7 @@ const THEMES: Record<string, {
   },
   '🎨': {
     label: 'Strategie',
-    bg: ['#312e81', '#4338ca'],
+    bg: ['#1c0d27', '#4a1968'],
     svg: (
       <svg viewBox="0 0 120 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-36 h-28">
         <circle cx="60" cy="50" r="32" fill="white" fillOpacity=".08" stroke="white" strokeOpacity=".2" strokeWidth="1"/>
@@ -89,7 +89,7 @@ const THEMES: Record<string, {
   },
   '🌿': {
     label: 'Promocje',
-    bg: ['#14532d', '#15803d'],
+    bg: ['#1a0d05', '#9c4a1a'],
     svg: (
       <svg viewBox="0 0 120 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-36 h-28">
         <line x1="60" y1="88" x2="60" y2="35" stroke="white" strokeOpacity=".5" strokeWidth="2" strokeLinecap="round"/>
@@ -105,7 +105,7 @@ const THEMES: Record<string, {
   },
   '💻': {
     label: 'Mobile',
-    bg: ['#1e3a5f', '#1d4ed8'],
+    bg: ['#0f0a1a', '#3d1d56'],
     svg: (
       <svg viewBox="0 0 120 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-36 h-28">
         <rect x="22" y="22" width="76" height="50" rx="5" fill="white" fillOpacity=".1" stroke="white" strokeOpacity=".35" strokeWidth="1.5"/>
@@ -123,7 +123,7 @@ const THEMES: Record<string, {
   },
   '✨': {
     label: 'Bonusy',
-    bg: ['#78350f', '#d97706'],
+    bg: ['#3d2106', '#a3781d'],
     svg: (
       <svg viewBox="0 0 120 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-36 h-28">
         <circle cx="60" cy="42" r="22" fill="white" fillOpacity=".12" stroke="white" strokeOpacity=".3" strokeWidth="1.5"/>
@@ -144,7 +144,7 @@ const THEMES: Record<string, {
   },
   '🍳': {
     label: 'Recenzje',
-    bg: ['#7c2d12', '#c2410c'],
+    bg: ['#231410', '#7c2d12'],
     svg: (
       <svg viewBox="0 0 120 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-36 h-28">
         <ellipse cx="55" cy="58" rx="28" ry="22" fill="white" fillOpacity=".1" stroke="white" strokeOpacity=".3" strokeWidth="1.5"/>
@@ -164,7 +164,7 @@ const THEMES: Record<string, {
   },
   '💡': {
     label: 'Porady',
-    bg: ['#365314', '#4d7c0f'],
+    bg: ['#3d2106', '#8e6911'],
     svg: (
       <svg viewBox="0 0 120 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-36 h-28">
         <line x1="60" y1="10" x2="60" y2="22" stroke="white" strokeOpacity=".4" strokeWidth="2" strokeLinecap="round"/>
@@ -187,7 +187,7 @@ const THEMES: Record<string, {
 
 const DEFAULT_THEME = {
   label: 'Casino',
-  bg: ['#1e3a5f', '#2563eb'] as [string, string],
+  bg: ['#1a0d05', '#6a0723'] as [string, string],
   svg: (
     <svg viewBox="0 0 120 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-36 h-28">
       <rect x="25" y="20" width="70" height="60" rx="6" fill="white" fillOpacity=".1" stroke="white" strokeOpacity=".3" strokeWidth="1.5"/>

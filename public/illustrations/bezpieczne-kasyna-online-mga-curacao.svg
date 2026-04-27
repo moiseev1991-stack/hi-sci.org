@@ -1,0 +1,22 @@
+<svg viewBox="0 0 320 180" width="320" height="180" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="gradBackground" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#003300"/>
+      <stop offset="100%" stop-color="#001a00"/>
+    </radialGradient>
+    <linearGradient id="gradAccent" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="rgba(255, 215, 0, 0.8)"/>
+      <stop offset="100%" stop-color="rgba(255, 215, 0, 0.3)"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="320" height="180" fill="url(#gradBackground)"/>
+  <circle cx="160" cy="90" r="50" fill="none" stroke="url(#gradAccent)" stroke-width="10"/>
+  <circle cx="160" cy="90" r="30" fill="rgba(255, 215, 0, 0.5)"/>
+  <line x1="20" y1="20" x2="40" y2="40" stroke="rgba(255, 255, 255, 0.5)" stroke-width="2"/>
+  <line x1="300" y1="20" x2="280" y2="40" stroke="rgba(255, 255, 255, 0.5)" stroke-width="2"/>
+  <line x1="20" y1="160" x2="40" y2="140" stroke="rgba(255, 255, 255, 0.5)" stroke-width="2"/>
+  <line x1="300" y1="160" x2="280" y2="140" stroke="rgba(255, 255, 255, 0.5)" stroke-width="2"/>
+  <circle cx="50" cy="130" r="3" fill="rgba(255, 215, 0, 0.8)"/>
+  <circle cx="270" cy="50" r="3" fill="rgba(255, 215, 0, 0.8)"/>
+  <rect x="0" y="170" width="320" height="10" fill="rgba(255, 215, 0, 0.3)"/>
+</svg>

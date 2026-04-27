@@ -44,15 +44,15 @@ function slugToPostId(slug: string): number {
 }
 
 const GRADIENTS: Record<string, [string, string]> = {
-  '🎰': ['#1b4332', '#2d6a4f'],
-  '🪟': ['#1e3a5f', '#2563eb'],
-  '🪵': ['#451a03', '#92400e'],
-  '🎨': ['#4a1d96', '#7c3aed'],
-  '🌿': ['#134e4a', '#0d9488'],
-  '💻': ['#1e293b', '#334155'],
-  '✨': ['#365314', '#65a30d'],
-  '🍳': ['#7c2d12', '#c2410c'],
-  '💡': ['#713f12', '#d97706'],
+  '🎰': ['#1a0d05', '#6a0723'],
+  '🪟': ['#1a0d05', '#8e1538'],
+  '🪵': ['#231410', '#5c2c0b'],
+  '🎨': ['#1c0d27', '#4a1968'],
+  '🌿': ['#1a0d05', '#9c4a1a'],
+  '💻': ['#0f0a1a', '#3d1d56'],
+  '✨': ['#3d2106', '#a3781d'],
+  '🍳': ['#231410', '#7c2d12'],
+  '💡': ['#3d2106', '#8e6911'],
 }
 
 const EMOJI_TO_CATEGORY: Record<string, string> = {
@@ -76,7 +76,7 @@ export default function BlogPostPage({ params }: Props) {
   const category = EMOJI_TO_CATEGORY[post.emoji] ?? 'design'
   const categoryLabel = EMOJI_TO_LABEL[post.emoji] ?? 'Design'
 
-  const [c1, c2] = GRADIENTS[post.emoji] ?? ['#1b4332', '#2d6a4f']
+  const [c1, c2] = GRADIENTS[post.emoji] ?? ['#1a0d05', '#6a0723']
 
   const jsonLd = {
     '@context': 'https://schema.org', '@type': 'BlogPosting',

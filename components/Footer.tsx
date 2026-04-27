@@ -5,11 +5,11 @@ export default function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="site-footer mt-8" style={{ background: 'linear-gradient(160deg, #0a1f12 0%, #1b4332 100%)' }}>
+    <footer className="site-footer mt-8" style={{ background: 'linear-gradient(160deg, #0d0a0f 0%, #1a0d05 50%, #6a0723 100%)' }}>
       {/* Top wave */}
       <div className="-mt-1">
         <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style={{ display: 'block' }}>
-          <path d="M0 0C240 50 480 60 720 40C960 20 1200 55 1440 30L1440 60L0 60Z" fill="#0a1f12"/>
+          <path d="M0 0C240 50 480 60 720 40C960 20 1200 55 1440 30L1440 60L0 60Z" fill="#0d0a0f"/>
         </svg>
       </div>
 

@@ -15,7 +15,7 @@ export default function FeaturedCard({ post }: Props) {
       <div
         className="lg:w-[58%] relative overflow-hidden flex flex-col justify-end"
         style={{
-          background: 'linear-gradient(160deg, #0d2818 0%, #1b4332 40%, #2d6a4f 100%)',
+          background: 'linear-gradient(160deg, #0d0a0f 0%, #1a0d05 40%, #6a0723 100%)',
           minHeight: 380,
         }}
       >
@@ -37,7 +37,7 @@ export default function FeaturedCard({ post }: Props) {
         >{post.emoji}</span>
 
         {/* Gradient overlay bottom */}
-        <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-[#0d2818]/80 to-transparent pointer-events-none" />
+        <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-[#0d0a0f]/95 to-transparent pointer-events-none" />
 
         <div className="relative z-10 p-8 lg:p-10">
           <span className="inline-flex items-center gap-1.5 bg-[var(--accent-light)]/20 border border-[var(--accent-light)]/30 text-[var(--accent-light)] text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full mb-4">
