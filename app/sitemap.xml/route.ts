@@ -1,5 +1,6 @@
 import { getAllPosts } from '@/lib/posts'
 import { siteConfig } from '@/lib/config'
+import { CATEGORIES } from '@/lib/categories'
 
 export async function GET() {
   const posts = getAllPosts()
@@ -10,6 +11,11 @@ export async function GET() {
     { url: `${base}/o-nas/`, priority: '0.5', changefreq: 'monthly' },
     { url: `${base}/kontakt/`, priority: '0.5', changefreq: 'monthly' },
     { url: `${base}/polityka-prywatnosci/`, priority: '0.5', changefreq: 'monthly' },
+    ...CATEGORIES.map(c => ({
+      url: `${base}/kategoria/${c.slug}/`,
+      priority: '0.7',
+      changefreq: 'weekly',
+    })),
   ]
 
   const postEntries: { url: string; priority: string; changefreq: string; lastmod?: string }[] = posts.map(p => ({

@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import type { Post } from '@/lib/posts'
+import { getAllPosts, type Post } from '@/lib/posts'
+import { CATEGORIES, postsInCategory } from '@/lib/categories'
 
 interface Props {
   recentPosts: Post[]
@@ -9,23 +10,13 @@ function formatDate(d: string) {
   return new Date(d).toLocaleDateString('pl-PL', { day: 'numeric', month: 'short' })
 }
 
-const CATEGORIES: Record<string, { label: string; slug: string; count: number }> = {
-  '🎰': { label: 'Sloty', slug: 'sloty', count: 1 },
-  '🪟': { label: 'Live Casino', slug: 'live-casino', count: 1 },
-  '🪵': { label: 'Klasyka', slug: 'klasyka', count: 1 },
-  '🎨': { label: 'Strategie', slug: 'strategie', count: 1 },
-  '🌿': { label: 'Promocje', slug: 'promocje', count: 1 },
-  '💻': { label: 'Mobile', slug: 'mobile', count: 1 },
-  '✨': { label: 'Bonusy', slug: 'bonusy', count: 2 },
-  '🍳': { label: 'Recenzje', slug: 'recenzje', count: 1 },
-  '💡': { label: 'Porady', slug: 'porady', count: 1 },
-}
-
-const uniqueCategories = Object.values(CATEGORIES).filter(
-  (v, i, a) => a.findIndex(x => x.slug === v.slug) === i
-)
-
 export default function Sidebar({ recentPosts }: Props) {
+  const allPosts = getAllPosts()
+  const categoriesWithCounts = CATEGORIES.map(cat => ({
+    ...cat,
+    count: postsInCategory(allPosts, cat.slug).length,
+  }))
+
   return (
     <aside id="secondary" className="widget-area nv-sidebar-wrap flex flex-col gap-6">
 
@@ -55,10 +46,10 @@ export default function Sidebar({ recentPosts }: Props) {
           <h3 className="font-heading text-sm font-bold text-[var(--text)]">Kategorie</h3>
         </div>
         <ul className="cat-list flex flex-col gap-1">
-          {uniqueCategories.map(cat => (
-            <li key={cat.slug} className="cat-item cat-item-{cat.slug}">
-              <Link href="/" className="flex justify-between items-center text-sm text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors py-1">
-                <span>{cat.label}</span>
+          {categoriesWithCounts.map(cat => (
+            <li key={cat.slug} className={`cat-item cat-item-${cat.slug}`}>
+              <Link href={`/kategoria/${cat.slug}/`} className="flex justify-between items-center text-sm text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors py-1">
+                <span>{cat.emoji} {cat.label}</span>
                 <span className="text-xs bg-[var(--bg-section)] px-2 py-0.5 rounded-full border border-[var(--border)]">{cat.count}</span>
               </Link>
             </li>

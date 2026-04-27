@@ -8,7 +8,12 @@ export const siteConfig = {
   moneyPageAnchor: "Vulkan Vegas",
   moneyPageAnchorAlt: "topowe kasyno online dla Polaków",
   moneyPageBonus: "bonus 100% do 4000 PLN",
-  featuredPostSlug: "najlepsze-kasyna-online-2026",
+  featuredPostSlugs: [
+    "najlepsze-kasyna-online-2026",
+    "vulkan-vegas-bonus-powitalny-4000-pln",
+    "vulkan-vegas-program-vip-i-cashback",
+    "vulkan-vegas-aplikacja-mobilna-android-ios",
+  ],
   author: "Redakcja Hi-Sci",
   wpVersion: "6.5.2",
   wpTheme: "neve",

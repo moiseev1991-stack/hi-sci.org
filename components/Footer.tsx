@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { siteConfig } from '@/lib/config'
+import { CATEGORIES } from '@/lib/categories'
 
 export default function Footer() {
   const year = new Date().getFullYear()
@@ -49,9 +50,9 @@ export default function Footer() {
           <div>
             <div className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">Tematy</div>
             <div className="flex flex-wrap gap-2">
-              {['Bonusy', 'Recenzje', 'Sloty', 'Live Casino', 'BLIK', 'Strategie'].map(tag => (
-                <Link key={tag} href="/" className="text-xs bg-white/10 hover:bg-white/20 text-gray-300 px-3 py-1.5 rounded-full transition-colors border border-white/10">
-                  {tag}
+              {CATEGORIES.map(cat => (
+                <Link key={cat.slug} href={`/kategoria/${cat.slug}/`} className="text-xs bg-white/10 hover:bg-white/20 text-gray-300 px-3 py-1.5 rounded-full transition-colors border border-white/10">
+                  {cat.label}
                 </Link>
               ))}
             </div>

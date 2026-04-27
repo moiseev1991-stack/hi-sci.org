@@ -2,6 +2,8 @@ import { notFound } from 'next/navigation'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { getAllPosts, getPostBySlug } from '@/lib/posts'
 import { siteConfig } from '@/lib/config'
+import { CATEGORY_BY_SLUG, EMOJI_TO_CATEGORY } from '@/lib/categories'
+import { isVulkanSlug, pickVulkanTargetForSlug } from '@/lib/vulkan'
 import Breadcrumbs from '@/components/Breadcrumbs'
 import Sidebar from '@/components/Sidebar'
 import type { Metadata } from 'next'
@@ -55,15 +57,6 @@ const GRADIENTS: Record<string, [string, string]> = {
   '💡': ['#3d2106', '#8e6911'],
 }
 
-const EMOJI_TO_CATEGORY: Record<string, string> = {
-  '🎰': 'sloty', '🪟': 'live-casino', '🪵': 'klasyka', '🎨': 'strategie',
-  '🌿': 'promocje', '💻': 'mobile', '✨': 'bonusy', '🍳': 'recenzje', '💡': 'porady',
-}
-
-const EMOJI_TO_LABEL: Record<string, string> = {
-  '🎰': 'Sloty', '🪟': 'Live Casino', '🪵': 'Klasyka', '🎨': 'Strategie',
-  '🌿': 'Promocje', '💻': 'Mobile', '✨': 'Bonusy', '🍳': 'Recenzje', '💡': 'Porady',
-}
 
 export default function PostPage({ params }: Props) {
   const post = getPostBySlug(params.slug)
@@ -74,7 +67,10 @@ export default function PostPage({ params }: Props) {
   const mins = readingTime(post.content)
   const postId = slugToPostId(post.slug)
   const category = EMOJI_TO_CATEGORY[post.emoji] ?? 'design'
-  const categoryLabel = EMOJI_TO_LABEL[post.emoji] ?? 'Design'
+  const categoryLabel = CATEGORY_BY_SLUG[category]?.label ?? 'Design'
+
+  const vulkanTarget = pickVulkanTargetForSlug(post.slug, allPosts)
+  const vulkanTargetPost = vulkanTarget ? getPostBySlug(vulkanTarget) : null
 
   const [c1, c2] = GRADIENTS[post.emoji] ?? ['#1a0d05', '#6a0723']
 
@@ -141,10 +137,30 @@ export default function PostPage({ params }: Props) {
 
             <footer className="entry-footer mt-6 pt-4 border-t border-[var(--border)]">
               <span className="cat-links text-xs text-[var(--text-muted)]">
-                Kategoria: <a href="/" rel="category tag" className="text-[var(--accent)] hover:underline">{categoryLabel}</a>
+                Kategoria: <a href={`/kategoria/${category}/`} rel="category tag" className="text-[var(--accent)] hover:underline">{categoryLabel}</a>
               </span>
             </footer>
           </article>
+
+          {/* Internal Vulkan Vegas CTA — round-robin equal share across 7 Vulkan pages */}
+          {vulkanTargetPost && (
+            <aside className="mt-8 p-6 rounded-2xl border-2 border-[var(--accent)]/40 bg-gradient-to-br from-[var(--accent)]/10 via-[var(--bg-card)] to-transparent">
+              <div className="flex items-start gap-4">
+                <span className="text-4xl shrink-0" role="img" aria-label="Vulkan Vegas">🎰</span>
+                <div className="min-w-0 flex-1">
+                  <div className="text-xs font-bold uppercase tracking-widest text-[var(--accent)] mb-1.5">Sprawdź też</div>
+                  <h3 className="font-heading text-lg sm:text-xl font-bold text-[var(--text)] mb-2 leading-snug">{vulkanTargetPost.title}</h3>
+                  <p className="text-sm text-[var(--text-muted)] mb-4 leading-relaxed">{vulkanTargetPost.description}</p>
+                  <a
+                    href={`/${vulkanTargetPost.slug}/`}
+                    className="inline-flex items-center gap-2 bg-[var(--accent)] hover:bg-[var(--accent-dark)] text-white font-bold text-sm px-5 py-2.5 rounded-xl transition-colors"
+                  >
+                    Czytaj artykuł →
+                  </a>
+                </div>
+              </div>
+            </aside>
+          )}
 
           {/* Related articles */}
           <div className="mt-8 pt-8 border-t border-[var(--border)]">
