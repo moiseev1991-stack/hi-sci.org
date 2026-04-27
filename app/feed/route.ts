@@ -7,7 +7,7 @@ export async function GET() {
   const items = posts.map((p, i) => `
     <item>
       <title><![CDATA[${p.title}]]></title>
-      <link>${siteConfig.url}/blog/${p.slug}/</link>
+      <link>${siteConfig.url}/${p.slug}/</link>
       <pubDate>${new Date(p.date).toUTCString()}</pubDate>
       <description><![CDATA[${p.description}]]></description>
       <wp:post_id>${i + 1}</wp:post_id>

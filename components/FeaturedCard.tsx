@@ -48,7 +48,7 @@ export default function FeaturedCard({ post }: Props) {
           </h3>
           <p className="text-gray-300 text-sm leading-relaxed mb-6 max-w-md">{words}</p>
           <Link
-            href={`/blog/${post.slug}/`}
+            href={`/${post.slug}/`}
             className="inline-flex items-center gap-2 bg-white text-[var(--accent-dark)] font-bold text-sm px-6 py-3 rounded-xl hover:bg-[var(--accent-light)] hover:text-[var(--accent-dark)] transition-colors"
           >
             Czytaj artykuł →

@@ -260,7 +260,7 @@ export default function PostCard({ post, size = 'normal', customExcerpt }: Props
         </div>
 
         <h3 className="entry-title font-heading text-lg font-bold text-[var(--text)] group-hover:text-[var(--accent)] transition-colors mb-2 leading-snug line-clamp-2">
-          <Link href={`/blog/${post.slug}/`}>{post.title}</Link>
+          <Link href={`/${post.slug}/`}>{post.title}</Link>
         </h3>
 
         <p className="text-sm text-[var(--text-muted)] leading-relaxed line-clamp-2 flex-1 mb-4 wp-block-paragraph">
@@ -268,7 +268,7 @@ export default function PostCard({ post, size = 'normal', customExcerpt }: Props
         </p>
 
         <Link
-          href={`/blog/${post.slug}/`}
+          href={`/${post.slug}/`}
           className="self-start inline-flex items-center gap-1.5 text-sm text-[var(--accent)] font-semibold hover:gap-3 transition-all"
         >
           Czytaj więcej <span className="text-base">→</span>

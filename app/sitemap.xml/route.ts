@@ -6,15 +6,14 @@ export async function GET() {
   const base = siteConfig.url
 
   const staticPages: { url: string; priority: string; changefreq: string; lastmod?: string }[] = [
-    { url: `${base}/`, priority: '1.0', changefreq: 'weekly' },
-    { url: `${base}/blog/`, priority: '0.9', changefreq: 'daily' },
+    { url: `${base}/`, priority: '1.0', changefreq: 'daily' },
     { url: `${base}/o-nas/`, priority: '0.5', changefreq: 'monthly' },
     { url: `${base}/kontakt/`, priority: '0.5', changefreq: 'monthly' },
     { url: `${base}/polityka-prywatnosci/`, priority: '0.5', changefreq: 'monthly' },
   ]
 
   const postEntries: { url: string; priority: string; changefreq: string; lastmod?: string }[] = posts.map(p => ({
-    url: `${base}/blog/${p.slug}/`,
+    url: `${base}/${p.slug}/`,
     priority: '0.8',
     changefreq: 'monthly',
     lastmod: p.date,

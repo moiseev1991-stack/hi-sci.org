@@ -39,7 +39,7 @@ export default function Sidebar({ recentPosts }: Props) {
             <li key={post.slug} className="flex gap-3 items-start p-4 hover:bg-[var(--bg-section)] transition-colors">
               <span className="text-2xl mt-0.5 shrink-0">{post.emoji}</span>
               <div className="min-w-0">
-                <Link href={`/blog/${post.slug}/`} className="text-sm font-medium text-[var(--text)] hover:text-[var(--accent)] transition-colors leading-snug line-clamp-2 block">
+                <Link href={`/${post.slug}/`} className="text-sm font-medium text-[var(--text)] hover:text-[var(--accent)] transition-colors leading-snug line-clamp-2 block">
                   {post.title}
                 </Link>
                 <time className="text-xs text-[var(--text-muted)] mt-0.5 block">{formatDate(post.date)}</time>
@@ -57,7 +57,7 @@ export default function Sidebar({ recentPosts }: Props) {
         <ul className="cat-list flex flex-col gap-1">
           {uniqueCategories.map(cat => (
             <li key={cat.slug} className="cat-item cat-item-{cat.slug}">
-              <Link href="/blog/" className="flex justify-between items-center text-sm text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors py-1">
+              <Link href="/" className="flex justify-between items-center text-sm text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors py-1">
                 <span>{cat.label}</span>
                 <span className="text-xs bg-[var(--bg-section)] px-2 py-0.5 rounded-full border border-[var(--border)]">{cat.count}</span>
               </Link>

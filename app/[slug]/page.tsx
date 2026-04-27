@@ -20,11 +20,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: post.title,
     description: post.description,
-    alternates: { canonical: `${siteConfig.url}/blog/${post.slug}/` },
+    alternates: { canonical: `${siteConfig.url}/${post.slug}/` },
     openGraph: {
       title: post.title, description: post.description,
       type: 'article', publishedTime: post.date,
-      url: `${siteConfig.url}/blog/${post.slug}/`,
+      url: `${siteConfig.url}/${post.slug}/`,
     },
   }
 }
@@ -65,7 +65,7 @@ const EMOJI_TO_LABEL: Record<string, string> = {
   '🌿': 'Promocje', '💻': 'Mobile', '✨': 'Bonusy', '🍳': 'Recenzje', '💡': 'Porady',
 }
 
-export default function BlogPostPage({ params }: Props) {
+export default function PostPage({ params }: Props) {
   const post = getPostBySlug(params.slug)
   if (!post) notFound()
 
@@ -84,14 +84,14 @@ export default function BlogPostPage({ params }: Props) {
     datePublished: post.date,
     author: { '@type': 'Organization', name: siteConfig.author },
     publisher: { '@type': 'Organization', name: siteConfig.name, url: siteConfig.url },
-    url: `${siteConfig.url}/blog/${post.slug}/`,
+    url: `${siteConfig.url}/${post.slug}/`,
     inLanguage: 'pl',
   }
 
   return (
     <div className="nv-content-wrap max-w-6xl mx-auto px-4 sm:px-6 py-10">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <Breadcrumbs items={[{ label: 'Blog', href: '/blog/' }, { label: post.title }]} />
+      <Breadcrumbs items={[{ label: post.title }]} />
 
       <div className="flex flex-col lg:flex-row gap-10">
 
@@ -141,7 +141,7 @@ export default function BlogPostPage({ params }: Props) {
 
             <footer className="entry-footer mt-6 pt-4 border-t border-[var(--border)]">
               <span className="cat-links text-xs text-[var(--text-muted)]">
-                Kategoria: <a href="/blog/" rel="category tag" className="text-[var(--accent)] hover:underline">{categoryLabel}</a>
+                Kategoria: <a href="/" rel="category tag" className="text-[var(--accent)] hover:underline">{categoryLabel}</a>
               </span>
             </footer>
           </article>
@@ -151,7 +151,7 @@ export default function BlogPostPage({ params }: Props) {
             <h3 className="font-heading text-xl font-bold text-[var(--text)] mb-4">Czytaj również</h3>
             <div className="flex flex-col gap-3">
               {allPosts.filter(p => p.slug !== post.slug).slice(0, 3).map(related => (
-                <a key={related.slug} href={`/blog/${related.slug}/`} className="flex items-center gap-3 p-3 rounded-xl hover:bg-[var(--bg-section)] transition-colors border border-[var(--border)] group">
+                <a key={related.slug} href={`/${related.slug}/`} className="flex items-center gap-3 p-3 rounded-xl hover:bg-[var(--bg-section)] transition-colors border border-[var(--border)] group">
                   <span className="text-2xl">{related.emoji}</span>
                   <div>
                     <div className="text-sm font-semibold text-[var(--text)] group-hover:text-[var(--accent)] transition-colors line-clamp-1">{related.title}</div>

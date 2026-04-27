@@ -34,7 +34,6 @@ export default function Footer() {
             <div className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">Nawigacja</div>
             <nav className="flex flex-col gap-2.5">
               {[
-                { label: 'Blog', href: '/blog/' },
                 { label: 'O nas', href: '/o-nas/' },
                 { label: 'Kontakt', href: '/kontakt/' },
                 { label: 'Polityka prywatności', href: '/polityka-prywatnosci/' },
@@ -51,7 +50,7 @@ export default function Footer() {
             <div className="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">Tematy</div>
             <div className="flex flex-wrap gap-2">
               {['Bonusy', 'Recenzje', 'Sloty', 'Live Casino', 'BLIK', 'Strategie'].map(tag => (
-                <Link key={tag} href="/blog/" className="text-xs bg-white/10 hover:bg-white/20 text-gray-300 px-3 py-1.5 rounded-full transition-colors border border-white/10">
+                <Link key={tag} href="/" className="text-xs bg-white/10 hover:bg-white/20 text-gray-300 px-3 py-1.5 rounded-full transition-colors border border-white/10">
                   {tag}
                 </Link>
               ))}

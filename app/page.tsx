@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { getAllPosts, getPostBySlug } from '@/lib/posts'
 import { siteConfig } from '@/lib/config'
 import PostCard from '@/components/PostCard'
@@ -18,8 +17,8 @@ export const metadata: Metadata = {
 export default function HomePage() {
   const allPosts = getAllPosts()
   const featuredPost = getPostBySlug(siteConfig.featuredPostSlug)
-  const otherPosts = allPosts.filter(p => p.slug !== siteConfig.featuredPostSlug).slice(0, 5)
-  const latestPosts = featuredPost ? [featuredPost, ...otherPosts] : allPosts.slice(0, 6)
+  const otherPosts = allPosts.filter(p => p.slug !== siteConfig.featuredPostSlug)
+  const latestPosts = featuredPost ? [featuredPost, ...otherPosts] : allPosts
 
   const jsonLd = {
     '@context': 'https://schema.org', '@type': 'WebSite',
@@ -33,16 +32,11 @@ export default function HomePage() {
 
       {/* ── LATEST ARTICLES ──────────────────────────────────── */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
-        <div className="flex items-end justify-between mb-10">
-          <div>
-            <span className="section-label">Najnowsze</span>
-            <h2 className="font-heading text-3xl sm:text-4xl font-bold text-[var(--text)] fancy-heading">
-              Recenzje, bonusy i strategie
-            </h2>
-          </div>
-          <Link href="/blog/" className="hidden sm:inline-flex items-center gap-1.5 text-sm text-[var(--accent)] font-semibold hover:gap-3 transition-all">
-            Wszystkie artykuły <span>→</span>
-          </Link>
+        <div className="mb-10">
+          <span className="section-label">Najnowsze</span>
+          <h2 className="font-heading text-3xl sm:text-4xl font-bold text-[var(--text)] fancy-heading">
+            Recenzje, bonusy i strategie
+          </h2>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -63,11 +57,6 @@ export default function HomePage() {
           ))}
         </div>
 
-        <div className="mt-10 flex justify-center sm:hidden">
-          <Link href="/blog/" className="text-sm text-[var(--accent)] font-semibold border border-[var(--accent)] px-6 py-2.5 rounded-xl hover:bg-[var(--accent)] hover:text-white transition-colors">
-            Wszystkie artykuły →
-          </Link>
-        </div>
       </section>
 
       {/* ── DECORATIVE DIVIDER ───────────────────────────────── */}
@@ -91,9 +80,9 @@ export default function HomePage() {
             <p className="text-[var(--text-muted)] mb-6">
               Odkryj nasze recenzje, porównania bonusów i strategie — wybierz licencjonowane kasyno dopasowane do Twojego stylu gry.
             </p>
-            <Link href="/blog/" className="inline-flex items-center gap-2 bg-[var(--accent)] hover:bg-[var(--accent-dark)] text-white font-bold px-7 py-3.5 rounded-xl transition-colors">
-              Przeglądaj wszystkie artykuły →
-            </Link>
+            <a href={siteConfig.moneyPageUrl} target="_blank" rel="noopener" className="inline-flex items-center gap-2 bg-[var(--accent)] hover:bg-[var(--accent-dark)] text-white font-bold px-7 py-3.5 rounded-xl transition-colors">
+              {siteConfig.moneyPageAnchor} →
+            </a>
           </div>
         </div>
       </div>
