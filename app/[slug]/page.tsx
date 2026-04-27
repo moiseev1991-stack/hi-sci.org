@@ -45,6 +45,24 @@ function slugToPostId(slug: string): number {
   return (h % 9000) + 1000
 }
 
+// Make every "Vulkan Vegas" mention in the body a link to the money page —
+// but skip occurrences that are already inside a markdown link [...](...).
+function linkifyVulkan(content: string): string {
+  const url = siteConfig.moneyPageUrl
+  // Split on existing markdown links so we don't touch their label/url.
+  const parts = content.split(/(\[[^\]]*\]\([^)]+\))/g)
+  return parts
+    .map((part, i) => {
+      if (i % 2 === 1) return part // already a markdown link, leave alone
+      // Bold form: **Vulkan Vegas** → [**Vulkan Vegas**](url)
+      let out = part.replace(/\*\*Vulkan Vegas\*\*/g, `[**Vulkan Vegas**](${url})`)
+      // Plain form: standalone "Vulkan Vegas" not preceded by [/* and not followed by ]/*
+      out = out.replace(/(^|[^\[\*\w])Vulkan Vegas(?![\w\]\*])/g, `$1[Vulkan Vegas](${url})`)
+      return out
+    })
+    .join('')
+}
+
 const GRADIENTS: Record<string, [string, string]> = {
   '🎰': ['#1a0d05', '#6a0723'],
   '🪟': ['#1a0d05', '#8e1538'],
@@ -96,27 +114,6 @@ export default function PostPage({ params }: Props) {
             id={`post-${postId}`}
             className={`post-${postId} post type-post status-publish format-standard hentry category-${category} has-post-thumbnail`}
           >
-            {/* Top-of-page Vulkan Vegas money CTA — visible on every post */}
-            <a
-              href={siteConfig.moneyPageUrl}
-              target="_blank"
-              rel="noopener sponsored"
-              className="block mb-5 rounded-2xl overflow-hidden border-2 border-[var(--accent)] bg-gradient-to-r from-[var(--accent-dark)] via-[var(--accent)] to-[var(--accent-dark)] text-white px-5 py-4 hover:scale-[1.01] transition-transform"
-              style={{ boxShadow: '0 10px 30px -10px rgba(106,7,35,0.55)' }}
-            >
-              <div className="flex items-center gap-4">
-                <span className="text-3xl shrink-0" role="img" aria-hidden="true">🎰</span>
-                <div className="min-w-0 flex-1">
-                  <div className="text-[10px] sm:text-xs font-bold uppercase tracking-widest opacity-80">Polecane przez redakcję</div>
-                  <div className="font-heading text-lg sm:text-xl font-extrabold leading-tight">
-                    {siteConfig.moneyPageAnchor} — {siteConfig.moneyPageBonus}
-                  </div>
-                </div>
-                <span className="hidden sm:inline-flex items-center gap-2 bg-white text-[var(--accent-dark)] font-bold text-sm px-4 py-2 rounded-xl shrink-0">Graj teraz →</span>
-                <span className="sm:hidden text-2xl shrink-0">→</span>
-              </div>
-            </a>
-
             {/* Featured image — unique per post via /illustrations/<slug>.svg, with a gradient fallback */}
             <div
               className="post-thumbnail relative w-full rounded-2xl overflow-hidden mb-7 flex items-center justify-center"
@@ -151,7 +148,17 @@ export default function PostPage({ params }: Props) {
             </header>
 
             <div className="entry-content prose prose-lg max-w-none prose-headings:font-heading prose-a:text-[var(--accent)] wp-block-post-content">
-              <MDXRemote source={post.content} />
+              <MDXRemote
+                source={linkifyVulkan(post.content)}
+                components={{
+                  a: (props: any) => {
+                    const isExternal = typeof props.href === 'string' && /^https?:\/\//i.test(props.href)
+                    return isExternal
+                      ? <a {...props} target="_blank" rel="noopener nofollow sponsored" />
+                      : <a {...props} />
+                  },
+                }}
+              />
             </div>
 
             <footer className="entry-footer mt-6 pt-4 border-t border-[var(--border)]">
