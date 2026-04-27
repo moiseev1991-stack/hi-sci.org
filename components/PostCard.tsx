@@ -1,5 +1,7 @@
 import Link from 'next/link'
 import type { Post } from '@/lib/posts'
+import { siteConfig } from '@/lib/config'
+import { isVulkanSlug } from '@/lib/vulkan'
 
 interface Props {
   post: Post
@@ -208,6 +210,67 @@ function slugHash(slug: string): number {
   return h
 }
 
+// Per-slug variation seed: keeps the category SVG, but tweaks accent fills,
+// rotation and floating decorations so two posts in the same category never
+// look identical.
+const ACCENT_PALETTE = ['#ffd166', '#f5d36c', '#4ecdc4', '#ff6b6b', '#c2185b', '#a78bfa', '#fbbf24', '#fb7185', '#34d399']
+
+interface Variation {
+  rotate: number
+  scale: number
+  accent: string
+  shapes: Array<{ kind: 'dot' | 'ring' | 'sparkle' | 'bar'; x: number; y: number; r: number; fill: string; opacity: number }>
+}
+
+function variationFor(slug: string): Variation {
+  const h = slugHash(slug)
+  const accent = ACCENT_PALETTE[h % ACCENT_PALETTE.length]
+  const rotate = ((h >> 3) % 11) - 5
+  const scale = 0.92 + ((h >> 7) % 16) / 100
+  const shapeCount = 3 + ((h >> 5) % 3)
+  const shapes: Variation['shapes'] = []
+  for (let i = 0; i < shapeCount; i++) {
+    const seed = (h >> (i * 4)) ^ (i * 2654435761)
+    const kind = (['dot', 'ring', 'sparkle', 'bar'] as const)[seed % 4]
+    shapes.push({
+      kind,
+      x: 8 + (seed % 100),
+      y: 6 + ((seed >> 7) % 80),
+      r: 2 + ((seed >> 3) % 5),
+      fill: ACCENT_PALETTE[(seed >> 11) % ACCENT_PALETTE.length],
+      opacity: 0.18 + ((seed >> 13) % 35) / 100,
+    })
+  }
+  return { rotate, scale, accent, shapes }
+}
+
+function VariationLayer({ v, slug }: { v: Variation; slug: string }) {
+  return (
+    <svg
+      viewBox="0 0 120 100"
+      preserveAspectRatio="none"
+      className="absolute inset-0 w-full h-full pointer-events-none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      {v.shapes.map((s, i) => {
+        if (s.kind === 'dot')
+          return <circle key={`${slug}-${i}`} cx={s.x} cy={s.y} r={s.r} fill={s.fill} opacity={s.opacity} />
+        if (s.kind === 'ring')
+          return <circle key={`${slug}-${i}`} cx={s.x} cy={s.y} r={s.r + 2} fill="none" stroke={s.fill} strokeWidth="0.8" opacity={s.opacity} />
+        if (s.kind === 'bar')
+          return <rect key={`${slug}-${i}`} x={s.x} y={s.y} width={s.r * 3} height="1.4" rx="0.7" fill={s.fill} opacity={s.opacity} />
+        return (
+          <g key={`${slug}-${i}`} opacity={s.opacity}>
+            <line x1={s.x - s.r} y1={s.y} x2={s.x + s.r} y2={s.y} stroke={s.fill} strokeWidth="0.8" strokeLinecap="round" />
+            <line x1={s.x} y1={s.y - s.r} x2={s.x} y2={s.y + s.r} stroke={s.fill} strokeWidth="0.8" strokeLinecap="round" />
+          </g>
+        )
+      })}
+    </svg>
+  )
+}
+
 function formatDate(d: string) {
   return new Date(d).toLocaleDateString('pl-PL', { day: 'numeric', month: 'long', year: 'numeric' })
 }
@@ -220,13 +283,29 @@ export default function PostCard({ post, size = 'normal', customExcerpt }: Props
   const theme = THEMES[post.emoji] ?? DEFAULT_THEME
   const [c1, c2] = theme.bg
   const mins = readingTime(post.content)
+  const v = variationFor(post.slug)
+  const isVulkan = isVulkanSlug(post.slug)
+
+  const excerpt = customExcerpt ?? (isVulkan ? (
+    <>
+      {post.description}{' '}
+      <a
+        href={siteConfig.moneyPageUrl}
+        target="_blank"
+        rel="noopener nofollow sponsored"
+        className="text-[var(--accent)] font-semibold underline underline-offset-2 hover:text-[var(--accent-light)] transition-colors"
+      >
+        {siteConfig.moneyPageAnchor} →
+      </a>
+    </>
+  ) : post.description)
 
   return (
     <article className={`card-lift hentry type-post status-publish format-standard bg-[var(--bg-card)] rounded-2xl overflow-hidden border border-[var(--border)] flex flex-col group`} style={{ boxShadow: 'var(--shadow)' }}>
       <div
         className="relative overflow-hidden flex items-center justify-center"
         style={{
-          background: `linear-gradient(135deg, ${c1} 0%, ${c2} 100%)`,
+          background: `linear-gradient(${135 + v.rotate * 4}deg, ${c1} 0%, ${c2} 100%)`,
           height: size === 'large' ? 220 : 180,
         }}
       >
@@ -241,13 +320,28 @@ export default function PostCard({ post, size = 'normal', customExcerpt }: Props
           </defs>
           <rect width="100%" height="100%" fill={`url(#p-${post.slug})`} />
         </svg>
-        <div className="absolute -bottom-8 -right-8 w-32 h-32 rounded-full border-2 border-white/10" />
 
-        <div className="relative group-hover:scale-105 transition-transform duration-300 drop-shadow-lg">
+        <VariationLayer v={v} slug={post.slug} />
+
+        <div
+          className="absolute w-32 h-32 rounded-full border-2 border-white/10"
+          style={{
+            bottom: -32 + (slugHash(post.slug) % 24),
+            right: -32 + ((slugHash(post.slug) >> 4) % 24),
+          }}
+        />
+
+        <div
+          className="relative group-hover:scale-105 transition-transform duration-300 drop-shadow-lg"
+          style={{ transform: `rotate(${v.rotate}deg) scale(${v.scale})` }}
+        >
           {theme.svg}
         </div>
 
-        <span className="absolute top-3 left-3 bg-white/20 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border border-white/30">
+        <span
+          className="absolute top-3 left-3 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border"
+          style={{ background: 'rgba(0,0,0,0.35)', borderColor: `${v.accent}66` }}
+        >
           {theme.label}
         </span>
       </div>
@@ -263,8 +357,8 @@ export default function PostCard({ post, size = 'normal', customExcerpt }: Props
           <Link href={`/${post.slug}/`}>{post.title}</Link>
         </h3>
 
-        <p className="text-sm text-[var(--text-muted)] leading-relaxed line-clamp-2 flex-1 mb-4 wp-block-paragraph">
-          {customExcerpt ?? post.description}
+        <p className="text-sm text-[var(--text-muted)] leading-relaxed line-clamp-3 flex-1 mb-4 wp-block-paragraph">
+          {excerpt}
         </p>
 
         <Link

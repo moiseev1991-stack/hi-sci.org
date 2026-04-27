@@ -22,7 +22,8 @@ export default function HomePage() {
   const featuredPosts = featuredSlugs
     .map(s => getPostBySlug(s))
     .filter((p): p is NonNullable<typeof p> => p !== null)
-  const latestPosts = allPosts.filter(p => !featuredSlugs.includes(p.slug))
+  const restPosts = allPosts.filter(p => !featuredSlugs.includes(p.slug))
+  const homeFeed = [...featuredPosts, ...restPosts]
 
   const jsonLd = {
     '@context': 'https://schema.org', '@type': 'WebSite',
@@ -32,36 +33,6 @@ export default function HomePage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-
-      {/* ── POLECANE (FEATURED VULKAN VEGAS) ─────────────────── */}
-      {featuredPosts.length > 0 && (
-        <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-16">
-          <div className="mb-10">
-            <span className="section-label">Polecane</span>
-            <h2 className="font-heading text-3xl sm:text-4xl font-bold text-[var(--text)] fancy-heading">
-              Vulkan Vegas — wybór redakcji
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {featuredPosts.map(post => (
-              <PostCard
-                key={post.slug}
-                post={post}
-                customExcerpt={post.slug === featuredSlugs[0] ? (
-                  <>
-                    Sprawdź najlepsze kasyna dla polskich graczy.{' '}
-                    <a href={siteConfig.moneyPageUrl} target="_blank" rel="noopener" className="text-[var(--accent)] font-semibold underline underline-offset-2 hover:text-[var(--accent-dark)] transition-colors">
-                      {siteConfig.moneyPageAnchor}
-                    </a>
-                    {' '}– {siteConfig.moneyPageBonus} i błyskawiczne wypłaty BLIK.
-                  </>
-                ) : undefined}
-              />
-            ))}
-          </div>
-        </section>
-      )}
 
       {/* ── KATEGORIE ────────────────────────────────────────── */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-16">
@@ -103,7 +74,7 @@ export default function HomePage() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {latestPosts.map(post => (
+          {homeFeed.map(post => (
             <PostCard key={post.slug} post={post} />
           ))}
         </div>

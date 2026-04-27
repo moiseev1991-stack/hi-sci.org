@@ -9,7 +9,6 @@ export const siteConfig = {
   moneyPageAnchorAlt: "topowe kasyno online dla Polaków",
   moneyPageBonus: "bonus 100% do 4000 PLN",
   featuredPostSlugs: [
-    "najlepsze-kasyna-online-2026",
     "vulkan-vegas-bonus-powitalny-4000-pln",
     "vulkan-vegas-program-vip-i-cashback",
     "vulkan-vegas-aplikacja-mobilna-android-ios",
