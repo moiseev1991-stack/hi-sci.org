@@ -23,7 +23,26 @@ export default function HomePage() {
     .map(s => getPostBySlug(s))
     .filter((p): p is NonNullable<typeof p> => p !== null)
   const restPosts = allPosts.filter(p => !featuredSlugs.includes(p.slug))
-  const homeFeed = [...featuredPosts, ...restPosts]
+
+  // Home grid: exactly 10 cards. Slot 0 = first Vulkan featured.
+  // Remaining Vulkan featured posts are interleaved into non-first positions
+  // (slots 3 and 6) so the home does not start with a Vulkan stack.
+  const HOME_LIMIT = 10
+  const [vFirst, ...vRest] = featuredPosts
+  const fillers = restPosts.slice(0, HOME_LIMIT - 1 - vRest.length)
+  const homeFeed: typeof allPosts = []
+  if (vFirst) homeFeed.push(vFirst)
+  const insertAt = [3, 6]
+  const fillerIter = fillers[Symbol.iterator]()
+  for (let i = 1; i < HOME_LIMIT; i++) {
+    const vIdx = insertAt.indexOf(i)
+    if (vIdx >= 0 && vRest[vIdx]) {
+      homeFeed.push(vRest[vIdx])
+    } else {
+      const next = fillerIter.next()
+      if (!next.done) homeFeed.push(next.value)
+    }
+  }
 
   const jsonLd = {
     '@context': 'https://schema.org', '@type': 'WebSite',

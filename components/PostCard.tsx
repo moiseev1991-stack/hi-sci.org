@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import type { Post } from '@/lib/posts'
 import { siteConfig } from '@/lib/config'
-import { isVulkanSlug } from '@/lib/vulkan'
 
 interface Props {
   post: Post
@@ -284,9 +283,8 @@ export default function PostCard({ post, size = 'normal', customExcerpt }: Props
   const [c1, c2] = theme.bg
   const mins = readingTime(post.content)
   const v = variationFor(post.slug)
-  const isVulkan = isVulkanSlug(post.slug)
 
-  const excerpt = customExcerpt ?? (isVulkan ? (
+  const excerpt = customExcerpt ?? (
     <>
       {post.description}{' '}
       <a
@@ -298,7 +296,7 @@ export default function PostCard({ post, size = 'normal', customExcerpt }: Props
         {siteConfig.moneyPageAnchor} →
       </a>
     </>
-  ) : post.description)
+  )
 
   return (
     <article className={`card-lift hentry type-post status-publish format-standard bg-[var(--bg-card)] rounded-2xl overflow-hidden border border-[var(--border)] flex flex-col group`} style={{ boxShadow: 'var(--shadow)' }}>
