@@ -1,8 +1,11 @@
-name: Weekly Post Generation
+name: Monthly Post Generation
 
 on:
   schedule:
-    - cron: '0 10 * * 1'   # every Monday, 10:00 UTC
+    # Monthly: 1st of every month, 09:00 UTC = 12:00 Moscow time
+    - cron: '0 9 1 * *'
+    # One-shot: 28 April 09:00 UTC = 12:00 Moscow time (also fires every Apr 28 — harmless extra post)
+    - cron: '0 9 28 4 *'
   workflow_dispatch:
 
 jobs:
@@ -24,10 +27,25 @@ jobs:
         run: node scripts/generate-post.mjs
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: gpt-4o-mini
 
       - name: Commit and push
         run: |
           git config user.email "action@github.com"
           git config user.name "GitHub Action"
           git add content/posts/ public/illustrations/
-          git diff --staged --quiet || (git commit -m "content: add weekly auto post" && git push)
+          git diff --staged --quiet || (git commit -m "content: add auto post" && git push)
+
+      - name: Trigger Cloudflare deploy
+        if: success()
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ]; then
+            echo "CLOUDFLARE_API_TOKEN not set — skip deploy"
+            exit 0
+          fi
+          npm install --no-audit --no-fund
+          npx next build
+          npx wrangler deploy

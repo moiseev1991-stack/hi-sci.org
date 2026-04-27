@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import type { Post } from '@/lib/posts'
-import { siteConfig } from '@/lib/config'
 
 interface Props {
   post: Post
@@ -283,20 +282,7 @@ export default function PostCard({ post, size = 'normal', customExcerpt }: Props
   const [c1, c2] = theme.bg
   const mins = readingTime(post.content)
   const v = variationFor(post.slug)
-
-  const excerpt = customExcerpt ?? (
-    <>
-      {post.description}{' '}
-      <a
-        href={siteConfig.moneyPageUrl}
-        target="_blank"
-        rel="noopener nofollow sponsored"
-        className="text-[var(--accent)] font-semibold underline underline-offset-2 hover:text-[var(--accent-light)] transition-colors"
-      >
-        {siteConfig.moneyPageAnchor} →
-      </a>
-    </>
-  )
+  const excerpt = customExcerpt ?? post.description
 
   return (
     <article className={`card-lift hentry type-post status-publish format-standard bg-[var(--bg-card)] rounded-2xl overflow-hidden border border-[var(--border)] flex flex-col group`} style={{ boxShadow: 'var(--shadow)' }}>

@@ -93,9 +93,36 @@ export default function HomePage() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {homeFeed.map(post => (
-            <PostCard key={post.slug} post={post} />
-          ))}
+          {homeFeed.map(post => {
+            const vulkanIdx = featuredSlugs.indexOf(post.slug)
+            if (vulkanIdx < 0) {
+              return <PostCard key={post.slug} post={post} />
+            }
+            const blurb = vulkanIdx === 0
+              ? 'Bonus 100% do 4000 PLN i 100 free spinów na start.'
+              : vulkanIdx === 1
+                ? 'Cashback do 12% i ekskluzywne nagrody w programie VIP.'
+                : 'Aplikacja mobilna na Android i iOS — graj wszędzie.'
+            return (
+              <PostCard
+                key={post.slug}
+                post={post}
+                customExcerpt={
+                  <>
+                    {blurb}{' '}
+                    <a
+                      href={siteConfig.moneyPageUrl}
+                      target="_blank"
+                      rel="noopener nofollow sponsored"
+                      className="text-[var(--accent)] font-semibold underline underline-offset-2 hover:text-[var(--accent-light)] transition-colors"
+                    >
+                      {siteConfig.moneyPageAnchor} →
+                    </a>
+                  </>
+                }
+              />
+            )
+          })}
         </div>
       </section>
 

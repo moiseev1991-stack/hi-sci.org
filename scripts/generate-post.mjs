@@ -59,7 +59,7 @@ async function callOpenAI({ messages, jsonMode = false, maxTokens = 6000 }) {
       Authorization: `Bearer ${OPENAI_API_KEY}`,
     },
     body: JSON.stringify({
-      model: 'gpt-4o',
+      model: process.env.OPENAI_MODEL || 'gpt-4o-mini',
       messages,
       max_tokens: maxTokens,
       ...(jsonMode ? { response_format: { type: 'json_object' } } : {}),
