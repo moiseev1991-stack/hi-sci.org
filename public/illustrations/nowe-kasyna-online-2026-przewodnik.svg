@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="180" viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg-13n5j" gradientTransform="rotate(121)">
+      <stop offset="0%" stop-color="hsl(26 66% 10.2%)"/>
+      <stop offset="100%" stop-color="hsl(342 50% 19.8%)"/>
+    </linearGradient>
+    <pattern id="pat-1qhvp" x="0" y="0" width="25" height="25" patternUnits="userSpaceOnUse">
+  <line x1="12.5" y1="2" x2="12.5" y2="23" stroke="white" stroke-opacity="0.15" stroke-width="0.8"/>
+  <line x1="2" y1="12.5" x2="23" y2="12.5" stroke="white" stroke-opacity="0.15" stroke-width="0.8"/>
+</pattern>
+  </defs>
+  <rect width="320" height="180" fill="url(#bg-13n5j)"/>
+  <rect width="320" height="180" fill="url(#pat-1qhvp)"/>
+  <circle cx="130" cy="150" r="2" fill="#fb7185" fill-opacity="0.7"/><circle cx="138" cy="95" r="5" fill="none" stroke="white" stroke-opacity="0.25" stroke-width="0.8"/><circle cx="41" cy="17" r="2" fill="#fb7185" fill-opacity="0.7"/><g transform="translate(301 69)" stroke="#fb7185" stroke-opacity="0.55" stroke-linecap="round" stroke-width="1.4">
+  <line x1="-3" y1="0" x2="3" y2="0"/><line x1="0" y1="-3" x2="0" y2="3"/>
+</g>
+  
+  <path d="M 104 113 L 104 89 A 40 40 0 0 1 184 89 L 184 113 Z" fill="white" fill-opacity="0.08" stroke="white" stroke-opacity="0.25" stroke-width="1.4"/>
+  <circle cx="144" cy="89" r="25" fill="#fb7185" fill-opacity="0.5"/>
+  <circle cx="144" cy="89" r="15" fill="white" fill-opacity="0.85"/>
+  <rect x="0" y="170" width="320" height="10" fill="black" fill-opacity="0.3"/>
+  <rect x="97" y="173" width="133" height="4" rx="2" fill="#fb7185" fill-opacity="0.75"/>
+</svg>

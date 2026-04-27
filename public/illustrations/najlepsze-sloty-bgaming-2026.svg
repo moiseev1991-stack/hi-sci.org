@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="180" viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg-cevdi" gradientTransform="rotate(105)">
+      <stop offset="0%" stop-color="hsl(351 64% 12.9%)"/>
+      <stop offset="100%" stop-color="hsl(24 69% 14.9%)"/>
+    </linearGradient>
+    <pattern id="pat-1kcvx" x="0" y="0" width="33" height="33" patternUnits="userSpaceOnUse">
+  <line x1="16.5" y1="2" x2="16.5" y2="31" stroke="white" stroke-opacity="0.16" stroke-width="0.8"/>
+  <line x1="2" y1="16.5" x2="31" y2="16.5" stroke="white" stroke-opacity="0.16" stroke-width="0.8"/>
+</pattern>
+  </defs>
+  <rect width="320" height="180" fill="url(#bg-cevdi)"/>
+  <rect width="320" height="180" fill="url(#pat-1kcvx)"/>
+  <g transform="translate(203 26)" stroke="white" stroke-opacity="0.45" stroke-linecap="round" stroke-width="1.2">
+  <line x1="-4" y1="0" x2="4" y2="0"/><line x1="0" y1="-4" x2="0" y2="4"/>
+</g><g transform="translate(8 139)" stroke="#fbbf24" stroke-opacity="0.55" stroke-linecap="round" stroke-width="1.4">
+  <line x1="-3" y1="0" x2="3" y2="0"/><line x1="0" y1="-3" x2="0" y2="3"/>
+</g><circle cx="79" cy="30" r="2" fill="#fbbf24" fill-opacity="0.7"/><circle cx="246" cy="131" r="8" fill="none" stroke="white" stroke-opacity="0.25" stroke-width="0.8"/><circle cx="88" cy="150" r="2" fill="#fbbf24" fill-opacity="0.7"/><circle cx="130" cy="144" r="2" fill="#fbbf24" fill-opacity="0.7"/>
+  
+  <circle cx="147" cy="101" r="48" fill="white" fill-opacity="0.07" stroke="white" stroke-opacity="0.25" stroke-width="1.4"/>
+  <circle cx="147" cy="101" r="29" fill="#fbbf24" fill-opacity="0.55"/>
+  <circle cx="147" cy="101" r="19" fill="white" fill-opacity="0.85"/>
+  <rect x="0" y="170" width="320" height="10" fill="black" fill-opacity="0.3"/>
+  <rect x="93" y="173" width="86" height="4" rx="2" fill="#fbbf24" fill-opacity="0.75"/>
+</svg>

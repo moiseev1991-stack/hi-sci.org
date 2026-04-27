@@ -96,19 +96,38 @@ export default function PostPage({ params }: Props) {
             id={`post-${postId}`}
             className={`post-${postId} post type-post status-publish format-standard hentry category-${category} has-post-thumbnail`}
           >
-            {/* Featured image */}
+            {/* Top-of-page Vulkan Vegas money CTA — visible on every post */}
+            <a
+              href={siteConfig.moneyPageUrl}
+              target="_blank"
+              rel="noopener sponsored"
+              className="block mb-5 rounded-2xl overflow-hidden border-2 border-[var(--accent)] bg-gradient-to-r from-[var(--accent-dark)] via-[var(--accent)] to-[var(--accent-dark)] text-white px-5 py-4 hover:scale-[1.01] transition-transform"
+              style={{ boxShadow: '0 10px 30px -10px rgba(106,7,35,0.55)' }}
+            >
+              <div className="flex items-center gap-4">
+                <span className="text-3xl shrink-0" role="img" aria-hidden="true">🎰</span>
+                <div className="min-w-0 flex-1">
+                  <div className="text-[10px] sm:text-xs font-bold uppercase tracking-widest opacity-80">Polecane przez redakcję</div>
+                  <div className="font-heading text-lg sm:text-xl font-extrabold leading-tight">
+                    {siteConfig.moneyPageAnchor} — {siteConfig.moneyPageBonus}
+                  </div>
+                </div>
+                <span className="hidden sm:inline-flex items-center gap-2 bg-white text-[var(--accent-dark)] font-bold text-sm px-4 py-2 rounded-xl shrink-0">Graj teraz →</span>
+                <span className="sm:hidden text-2xl shrink-0">→</span>
+              </div>
+            </a>
+
+            {/* Featured image — unique per post via /illustrations/<slug>.svg, with a gradient fallback */}
             <div
               className="post-thumbnail relative w-full rounded-2xl overflow-hidden mb-7 flex items-center justify-center"
               style={{ height: 280, background: `linear-gradient(135deg, ${c1} 0%, ${c2} 100%)` }}
             >
-              <svg className="absolute inset-0 w-full h-full opacity-10" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                  <pattern id="art-dots" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse">
-                    <circle cx="15" cy="15" r="1" fill="white"/>
-                  </pattern>
-                </defs>
-                <rect width="100%" height="100%" fill="url(#art-dots)"/>
-              </svg>
+              <img
+                src={`/illustrations/${post.slug}.svg`}
+                alt={post.title}
+                className="absolute inset-0 w-full h-full object-cover"
+                loading="lazy"
+              />
               <div className="absolute -bottom-6 -right-6 w-40 h-40 rounded-full bg-white/5" />
               <span className="wp-post-image relative text-[110px] select-none drop-shadow-2xl" role="img" aria-label={post.title}>{post.emoji}</span>
             </div>

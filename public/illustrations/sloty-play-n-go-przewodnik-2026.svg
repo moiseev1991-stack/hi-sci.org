@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="180" viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg-197nf" gradientTransform="rotate(155)">
+      <stop offset="0%" stop-color="hsl(351 70% 9.5%)"/>
+      <stop offset="100%" stop-color="hsl(17 64% 15.4%)"/>
+    </linearGradient>
+    <pattern id="pat-1h6ig" x="0" y="0" width="29" height="29" patternUnits="userSpaceOnUse">
+  <circle cx="14.5" cy="14.5" r="9.666666666666666" fill="none" stroke="white" stroke-opacity="0.09" stroke-width="0.8"/>
+</pattern>
+  </defs>
+  <rect width="320" height="180" fill="url(#bg-197nf)"/>
+  <rect width="320" height="180" fill="url(#pat-1h6ig)"/>
+  <g transform="translate(160 117)" stroke="#fbbf24" stroke-opacity="0.55" stroke-linecap="round" stroke-width="1.4">
+  <line x1="-3" y1="0" x2="3" y2="0"/><line x1="0" y1="-3" x2="0" y2="3"/>
+</g><g transform="translate(237 29)" stroke="white" stroke-opacity="0.45" stroke-linecap="round" stroke-width="1.2">
+  <line x1="-4" y1="0" x2="4" y2="0"/><line x1="0" y1="-4" x2="0" y2="4"/>
+</g><g transform="translate(294 87)" stroke="#fbbf24" stroke-opacity="0.55" stroke-linecap="round" stroke-width="1.4">
+  <line x1="-3" y1="0" x2="3" y2="0"/><line x1="0" y1="-3" x2="0" y2="3"/>
+</g><circle cx="106" cy="50" r="8" fill="none" stroke="white" stroke-opacity="0.25" stroke-width="0.8"/><circle cx="18" cy="105" r="2" fill="#fbbf24" fill-opacity="0.7"/><g transform="translate(97 103)" stroke="white" stroke-opacity="0.45" stroke-linecap="round" stroke-width="1.2">
+  <line x1="-4" y1="0" x2="4" y2="0"/><line x1="0" y1="-4" x2="0" y2="4"/>
+</g>
+  
+  <circle cx="134" cy="104" r="47" fill="white" fill-opacity="0.07" stroke="white" stroke-opacity="0.25" stroke-width="1.4"/>
+  <circle cx="134" cy="104" r="28" fill="#fbbf24" fill-opacity="0.55"/>
+  <circle cx="134" cy="104" r="18" fill="white" fill-opacity="0.85"/>
+  <rect x="0" y="170" width="320" height="10" fill="black" fill-opacity="0.3"/>
+  <rect x="113" y="173" width="112" height="4" rx="2" fill="#fbbf24" fill-opacity="0.75"/>
+</svg>

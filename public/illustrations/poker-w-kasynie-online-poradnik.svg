@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="180" viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg-gr7ao" gradientTransform="rotate(160)">
+      <stop offset="0%" stop-color="hsl(18 80% 10.4%)"/>
+      <stop offset="100%" stop-color="hsl(13 59% 18.7%)"/>
+    </linearGradient>
+    <pattern id="pat-zebu6" x="0" y="0" width="19" height="19" patternUnits="userSpaceOnUse">
+  <circle cx="9.5" cy="9.5" r="6.333333333333333" fill="none" stroke="white" stroke-opacity="0.10" stroke-width="0.8"/>
+</pattern>
+  </defs>
+  <rect width="320" height="180" fill="url(#bg-gr7ao)"/>
+  <rect width="320" height="180" fill="url(#pat-zebu6)"/>
+  <g transform="translate(148 39)" stroke="white" stroke-opacity="0.45" stroke-linecap="round" stroke-width="1.2">
+  <line x1="-4" y1="0" x2="4" y2="0"/><line x1="0" y1="-4" x2="0" y2="4"/>
+</g><circle cx="120" cy="22" r="8" fill="none" stroke="white" stroke-opacity="0.25" stroke-width="0.8"/><g transform="translate(49 102)" stroke="#d4a373" stroke-opacity="0.55" stroke-linecap="round" stroke-width="1.4">
+  <line x1="-3" y1="0" x2="3" y2="0"/><line x1="0" y1="-3" x2="0" y2="3"/>
+</g>
+  
+  <rect x="143.05" y="39.45" width="55.9" height="73.1" rx="6" fill="white" fill-opacity="0.08" stroke="white" stroke-opacity="0.25" stroke-width="1.4"/>
+  <circle cx="171" cy="76" r="25" fill="#d4a373" fill-opacity="0.5"/>
+  <circle cx="171" cy="76" r="14" fill="white" fill-opacity="0.85"/>
+  <rect x="0" y="170" width="320" height="10" fill="black" fill-opacity="0.3"/>
+  <rect x="81" y="173" width="93" height="4" rx="2" fill="#d4a373" fill-opacity="0.75"/>
+</svg>

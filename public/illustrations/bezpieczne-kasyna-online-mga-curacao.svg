@@ -1,22 +1,26 @@
-<svg viewBox="0 0 320 180" width="320" height="180" xmlns="http://www.w3.org/2000/svg">
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="180" viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice">
   <defs>
-    <radialGradient id="gradBackground" cx="0.5" cy="0.5" r="0.5">
-      <stop offset="0%" stop-color="#003300"/>
-      <stop offset="100%" stop-color="#001a00"/>
-    </radialGradient>
-    <linearGradient id="gradAccent" x1="0" x2="1" y1="0" y2="1">
-      <stop offset="0%" stop-color="rgba(255, 215, 0, 0.8)"/>
-      <stop offset="100%" stop-color="rgba(255, 215, 0, 0.3)"/>
+    <linearGradient id="bg-1368d" gradientTransform="rotate(141)">
+      <stop offset="0%" stop-color="hsl(51 65% 9.7%)"/>
+      <stop offset="100%" stop-color="hsl(35 61% 17.1%)"/>
     </linearGradient>
+    <pattern id="pat-1d95o" x="0" y="0" width="31" height="31" patternUnits="userSpaceOnUse" patternTransform="rotate(30)">
+  <line x1="0" y1="15.5" x2="31" y2="15.5" stroke="white" stroke-opacity="0.15" stroke-width="1"/>
+</pattern>
   </defs>
-  <rect x="0" y="0" width="320" height="180" fill="url(#gradBackground)"/>
-  <circle cx="160" cy="90" r="50" fill="none" stroke="url(#gradAccent)" stroke-width="10"/>
-  <circle cx="160" cy="90" r="30" fill="rgba(255, 215, 0, 0.5)"/>
-  <line x1="20" y1="20" x2="40" y2="40" stroke="rgba(255, 255, 255, 0.5)" stroke-width="2"/>
-  <line x1="300" y1="20" x2="280" y2="40" stroke="rgba(255, 255, 255, 0.5)" stroke-width="2"/>
-  <line x1="20" y1="160" x2="40" y2="140" stroke="rgba(255, 255, 255, 0.5)" stroke-width="2"/>
-  <line x1="300" y1="160" x2="280" y2="140" stroke="rgba(255, 255, 255, 0.5)" stroke-width="2"/>
-  <circle cx="50" cy="130" r="3" fill="rgba(255, 215, 0, 0.8)"/>
-  <circle cx="270" cy="50" r="3" fill="rgba(255, 215, 0, 0.8)"/>
-  <rect x="0" y="170" width="320" height="10" fill="rgba(255, 215, 0, 0.3)"/>
+  <rect width="320" height="180" fill="url(#bg-1368d)"/>
+  <rect width="320" height="180" fill="url(#pat-1d95o)"/>
+  <g transform="translate(64 156)" stroke="#facc15" stroke-opacity="0.55" stroke-linecap="round" stroke-width="1.4">
+  <line x1="-3" y1="0" x2="3" y2="0"/><line x1="0" y1="-3" x2="0" y2="3"/>
+</g><circle cx="267" cy="135" r="2" fill="#facc15" fill-opacity="0.7"/><g transform="translate(180 141)" stroke="white" stroke-opacity="0.45" stroke-linecap="round" stroke-width="1.2">
+  <line x1="-4" y1="0" x2="4" y2="0"/><line x1="0" y1="-4" x2="0" y2="4"/>
+</g><circle cx="301" cy="123" r="2" fill="#facc15" fill-opacity="0.7"/><circle cx="309" cy="117" r="2" fill="#facc15" fill-opacity="0.7"/><g transform="translate(34 56)" stroke="white" stroke-opacity="0.45" stroke-linecap="round" stroke-width="1.2">
+  <line x1="-4" y1="0" x2="4" y2="0"/><line x1="0" y1="-4" x2="0" y2="4"/>
+</g>
+  
+  <polygon points="211.0,70.0 188.5,109.0 143.5,109.0 121.0,70.0 143.5,31.0 188.5,31.0" fill="white" fill-opacity="0.07" stroke="white" stroke-opacity="0.25" stroke-width="1.4"/>
+  <circle cx="166" cy="70" r="28" fill="#facc15" fill-opacity="0.5"/>
+  <circle cx="166" cy="70" r="17" fill="white" fill-opacity="0.85"/>
+  <rect x="0" y="170" width="320" height="10" fill="black" fill-opacity="0.3"/>
+  <rect x="87" y="173" width="85" height="4" rx="2" fill="#facc15" fill-opacity="0.75"/>
 </svg>

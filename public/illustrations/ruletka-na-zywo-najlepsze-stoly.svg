@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="180" viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg-1i96b" gradientTransform="rotate(130)">
+      <stop offset="0%" stop-color="hsl(323 78% 10.0%)"/>
+      <stop offset="100%" stop-color="hsl(289 64% 20.5%)"/>
+    </linearGradient>
+    <pattern id="pat-ktdbi" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+  <circle cx="12" cy="12" r="1.10" fill="white" fill-opacity="0.13"/>
+</pattern>
+  </defs>
+  <rect width="320" height="180" fill="url(#bg-1i96b)"/>
+  <rect width="320" height="180" fill="url(#pat-ktdbi)"/>
+  <circle cx="294" cy="65" r="2" fill="#f472b6" fill-opacity="0.7"/><circle cx="127" cy="129" r="5" fill="none" stroke="white" stroke-opacity="0.25" stroke-width="0.8"/><circle cx="40" cy="54" r="2" fill="#f472b6" fill-opacity="0.7"/><circle cx="23" cy="15" r="5" fill="none" stroke="white" stroke-opacity="0.25" stroke-width="0.8"/>
+  
+  <rect x="148.5" y="42.5" width="65" height="85" rx="6" fill="white" fill-opacity="0.08" stroke="white" stroke-opacity="0.25" stroke-width="1.4"/>
+  <circle cx="181" cy="85" r="32" fill="#f472b6" fill-opacity="0.5"/>
+  <circle cx="181" cy="85" r="19" fill="white" fill-opacity="0.85"/>
+  <rect x="0" y="170" width="320" height="10" fill="black" fill-opacity="0.3"/>
+  <rect x="96" y="173" width="117" height="4" rx="2" fill="#f472b6" fill-opacity="0.75"/>
+</svg>

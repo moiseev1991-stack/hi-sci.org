@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="180" viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg-juifd" gradientTransform="rotate(139)">
+      <stop offset="0%" stop-color="hsl(43 68% 10.9%)"/>
+      <stop offset="100%" stop-color="hsl(39 56% 19.8%)"/>
+    </linearGradient>
+    <pattern id="pat-17toz" x="0" y="0" width="33" height="33" patternUnits="userSpaceOnUse">
+  <polygon points="16.5,2 31,16.5 16.5,31 2,16.5" fill="none" stroke="white" stroke-opacity="0.13" stroke-width="0.8"/>
+</pattern>
+  </defs>
+  <rect width="320" height="180" fill="url(#bg-juifd)"/>
+  <rect width="320" height="180" fill="url(#pat-17toz)"/>
+  <g transform="translate(81 147)" stroke="#facc15" stroke-opacity="0.55" stroke-linecap="round" stroke-width="1.4">
+  <line x1="-3" y1="0" x2="3" y2="0"/><line x1="0" y1="-3" x2="0" y2="3"/>
+</g><circle cx="225" cy="129" r="4" fill="none" stroke="white" stroke-opacity="0.25" stroke-width="0.8"/><circle cx="14" cy="27" r="6" fill="none" stroke="white" stroke-opacity="0.25" stroke-width="0.8"/><circle cx="42" cy="153" r="6" fill="none" stroke="white" stroke-opacity="0.25" stroke-width="0.8"/>
+  
+  <polygon points="223.0,102.0 199.5,142.7 152.5,142.7 129.0,102.0 152.5,61.3 199.5,61.3" fill="white" fill-opacity="0.07" stroke="white" stroke-opacity="0.25" stroke-width="1.4"/>
+  <circle cx="176" cy="102" r="29" fill="#facc15" fill-opacity="0.5"/>
+  <circle cx="176" cy="102" r="17" fill="white" fill-opacity="0.85"/>
+  <rect x="0" y="170" width="320" height="10" fill="black" fill-opacity="0.3"/>
+  <rect x="131" y="173" width="121" height="4" rx="2" fill="#facc15" fill-opacity="0.75"/>
+</svg>

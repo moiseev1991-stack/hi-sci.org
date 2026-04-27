@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="180" viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg-19qw7" gradientTransform="rotate(130)">
+      <stop offset="0%" stop-color="hsl(55 76% 9.9%)"/>
+      <stop offset="100%" stop-color="hsl(34 67% 23.1%)"/>
+    </linearGradient>
+    <pattern id="pat-2f81q" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse" patternTransform="rotate(90)">
+  <line x1="0" y1="16" x2="32" y2="16" stroke="white" stroke-opacity="0.10" stroke-width="1"/>
+</pattern>
+  </defs>
+  <rect width="320" height="180" fill="url(#bg-19qw7)"/>
+  <rect width="320" height="180" fill="url(#pat-2f81q)"/>
+  <circle cx="80" cy="42" r="8" fill="none" stroke="white" stroke-opacity="0.25" stroke-width="0.8"/><g transform="translate(158 105)" stroke="#facc15" stroke-opacity="0.55" stroke-linecap="round" stroke-width="1.4">
+  <line x1="-3" y1="0" x2="3" y2="0"/><line x1="0" y1="-3" x2="0" y2="3"/>
+</g><g transform="translate(128 57)" stroke="#facc15" stroke-opacity="0.55" stroke-linecap="round" stroke-width="1.4">
+  <line x1="-3" y1="0" x2="3" y2="0"/><line x1="0" y1="-3" x2="0" y2="3"/>
+</g><g transform="translate(110 32)" stroke="#facc15" stroke-opacity="0.55" stroke-linecap="round" stroke-width="1.4">
+  <line x1="-3" y1="0" x2="3" y2="0"/><line x1="0" y1="-3" x2="0" y2="3"/>
+</g><g transform="translate(272 147)" stroke="white" stroke-opacity="0.45" stroke-linecap="round" stroke-width="1.2">
+  <line x1="-4" y1="0" x2="4" y2="0"/><line x1="0" y1="-4" x2="0" y2="4"/>
+</g><g transform="translate(92 93)" stroke="white" stroke-opacity="0.45" stroke-linecap="round" stroke-width="1.2">
+  <line x1="-4" y1="0" x2="4" y2="0"/><line x1="0" y1="-4" x2="0" y2="4"/>
+</g>
+  
+  <polygon points="215.0,93.0 195.5,126.8 156.5,126.8 137.0,93.0 156.5,59.2 195.5,59.2" fill="white" fill-opacity="0.07" stroke="white" stroke-opacity="0.25" stroke-width="1.4"/>
+  <circle cx="176" cy="93" r="27" fill="#facc15" fill-opacity="0.5"/>
+  <circle cx="176" cy="93" r="14" fill="white" fill-opacity="0.85"/>
+  <rect x="0" y="170" width="320" height="10" fill="black" fill-opacity="0.3"/>
+  <rect x="128" y="173" width="70" height="4" rx="2" fill="#facc15" fill-opacity="0.75"/>
+</svg>
