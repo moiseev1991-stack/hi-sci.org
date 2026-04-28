@@ -55,6 +55,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="wlwmanifest" type="application/wlwmanifest+xml" href={`${siteConfig.url}/wp-includes/wlwmanifest.xml`} />
         <link rel="shortlink" href={siteConfig.url} />
         <meta name="generator" content={`WordPress ${siteConfig.wpVersion}`} />
+        <meta name="google-site-verification" content="eDaQzvXF1XaVg7P89WVUbqcXCbnZDk7CyHbYlGJIpo0" />
         <script dangerouslySetInnerHTML={{ __html: `
 window._wpemojiSettings = {"baseUrl":"https:\\/\\/s.w.org\\/images\\/core\\/emoji\\/15.0.3\\/72x72\\/","ext":".png","svgUrl":"https:\\/\\/s.w.org\\/images\\/core\\/emoji\\/15.0.3\\/svg\\/","svgExt":".svg","source":{"concatemoji":"${siteConfig.url}\\/wp-includes\\/js\\/wp-emoji-release.min.js?ver=${siteConfig.wpVersion}"}};
 ` }} />
