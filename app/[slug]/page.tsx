@@ -45,32 +45,33 @@ function slugToPostId(slug: string): number {
   return (h % 9000) + 1000
 }
 
-// Hard rule: AT MOST ONE outbound money link per article body, and that link
-// MUST live in the first paragraph (above the fold). Algorithm:
-//  1. Strip every existing markdown link to the money URL — turn each back
-//     into plain or bold "Vulkan Vegas" text. This wipes any link that
-//     generation may have placed elsewhere (editor's pick section, etc.).
-//  2. Find the first paragraph (first non-empty, non-heading line block).
-//  3. Inside that paragraph, link the first **Vulkan Vegas** (bold) mention,
-//     or fall back to the first plain mention.
-//  4. If first paragraph has no mention but body does, append a short
-//     sponsored sentence with the link to the first paragraph.
-//  5. If body has no brand mention at all, leave content untouched.
-function linkifyVulkan(content: string): string {
+// Money links are confined to the 3 featured posts (siteConfig.featuredPostSlugs).
+// Every other article: strip every existing link to the money URL AND strip the
+// bold formatting on plain "Vulkan Vegas" mentions so the brand reads as plain
+// text — never bold-without-link, never linked.
+//
+// On a featured money post: place exactly one link in the first paragraph.
+// All subsequent brand mentions on that page are plain text too.
+function linkifyVulkan(content: string, currentSlug: string): string {
   const url = siteConfig.moneyPageUrl
-  if (!/Vulkan Vegas/.test(content)) return content
-
-  // Step 1: nuke every existing link to moneyPageUrl. Two flavors of label:
-  //   [**Vulkan Vegas**](url)  → **Vulkan Vegas**
-  //   [Vulkan Vegas](url)      → Vulkan Vegas
-  // Also handle any other label that points at moneyPageUrl — keep the inner label.
   const escUrl = url.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-  let stripped = content
+  const isMoney = (siteConfig.featuredPostSlugs as readonly string[]).includes(currentSlug)
+
+  // Step 1 (always): remove every existing markdown link to the money URL.
+  let out = content
     .replace(new RegExp(`\\[\\*\\*([^\\]]*)\\*\\*\\]\\(${escUrl}\\)`, 'g'), '**$1**')
     .replace(new RegExp(`\\[([^\\]]*)\\]\\(${escUrl}\\)`, 'g'), '$1')
 
-  // Step 2: locate first paragraph.
-  const lines = stripped.split('\n')
+  if (!isMoney) {
+    // Non-money article: drop the bold formatting on every "Vulkan Vegas"
+    // so it reads as plain prose, not bold-without-link.
+    out = out.replace(/\*\*Vulkan Vegas\*\*/g, 'Vulkan Vegas')
+    return out
+  }
+
+  // Money article: place exactly one link in the first paragraph.
+  if (!/Vulkan Vegas/.test(out)) return out
+  const lines = out.split('\n')
   let firstParaIdx = -1
   for (let i = 0; i < lines.length; i++) {
     const ln = lines[i].trim()
@@ -79,9 +80,8 @@ function linkifyVulkan(content: string): string {
     firstParaIdx = i
     break
   }
-  if (firstParaIdx < 0) return stripped
+  if (firstParaIdx < 0) return out
 
-  // Step 3-4: place exactly one link in the first paragraph.
   let para = lines[firstParaIdx]
   if (/\*\*Vulkan Vegas\*\*/.test(para)) {
     para = para.replace(/\*\*Vulkan Vegas\*\*/, `[**Vulkan Vegas**](${url})`)
@@ -91,7 +91,11 @@ function linkifyVulkan(content: string): string {
     para = para.replace(/\s*$/, '') + ` Sprawdź pełną recenzję na [Vulkan Vegas](${url}).`
   }
   lines[firstParaIdx] = para
-  return lines.join('\n')
+
+  // Strip bold from any remaining standalone mentions in body so the page has
+  // exactly one styled mention — the link in the first paragraph.
+  const result = lines.join('\n')
+  return result.replace(/\*\*Vulkan Vegas\*\*/g, 'Vulkan Vegas')
 }
 
 const GRADIENTS: Record<string, [string, string]> = {
@@ -180,7 +184,7 @@ export default function PostPage({ params }: Props) {
 
             <div className="entry-content prose prose-lg max-w-none prose-headings:font-heading prose-a:text-[var(--accent)] wp-block-post-content">
               <MDXRemote
-                source={linkifyVulkan(post.content)}
+                source={linkifyVulkan(post.content, post.slug)}
                 components={{
                   a: (props: any) => {
                     const isExternal = typeof props.href === 'string' && /^https?:\/\//i.test(props.href)
