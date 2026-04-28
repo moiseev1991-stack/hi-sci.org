@@ -45,41 +45,42 @@ function slugToPostId(slug: string): number {
   return (h % 9000) + 1000
 }
 
-// Convert AT MOST ONE "Vulkan Vegas" mention in the body into a link to the
-// money page. The article is allowed exactly one outbound money link, no matter
-// how many times the brand is mentioned. Already-linked occurrences are
-// respected and count toward the cap.
+// Place exactly one "Vulkan Vegas" link in the body — and that link MUST live
+// in the first paragraph (above the fold). All other brand mentions stay as
+// plain text.
+//
+// Behavior:
+//  1. Body already has a link to the money URL anywhere → return as-is (don't add another).
+//  2. First paragraph mentions "Vulkan Vegas" → link the first such occurrence inside it.
+//  3. First paragraph has no mention but body does → append a short sentence with the link to the first paragraph.
+//  4. Body has no mention at all → return as-is, no link.
 function linkifyVulkan(content: string): string {
   const url = siteConfig.moneyPageUrl
-  // Already linked anywhere? Respect it as the one allowed link.
   if (content.includes(`(${url})`)) return content
+  if (!/Vulkan Vegas/.test(content)) return content
 
-  const parts = content.split(/(\[[^\]]*\]\([^)]+\))/g)
-  let replaced = false
-
-  // Pass 1: prefer linking the first **Vulkan Vegas** (bold) mention.
-  for (let i = 0; i < parts.length && !replaced; i++) {
-    if (i % 2 === 1) continue // existing markdown link — skip
-    const m = parts[i].match(/\*\*Vulkan Vegas\*\*/)
-    if (m) {
-      parts[i] = parts[i].replace(/\*\*Vulkan Vegas\*\*/, `[**Vulkan Vegas**](${url})`)
-      replaced = true
-    }
+  const lines = content.split('\n')
+  let firstParaIdx = -1
+  for (let i = 0; i < lines.length; i++) {
+    const ln = lines[i].trim()
+    if (!ln) continue
+    if (ln.startsWith('#') || ln.startsWith('---')) continue
+    firstParaIdx = i
+    break
   }
+  if (firstParaIdx < 0) return content
 
-  // Pass 2: if no bold form, link the first plain mention.
-  if (!replaced) {
-    for (let i = 0; i < parts.length && !replaced; i++) {
-      if (i % 2 === 1) continue
-      const m = parts[i].match(/(^|[^\[\*\w])Vulkan Vegas(?![\w\]\*])/)
-      if (m) {
-        parts[i] = parts[i].replace(/(^|[^\[\*\w])Vulkan Vegas(?![\w\]\*])/, `$1[Vulkan Vegas](${url})`)
-        replaced = true
-      }
-    }
+  let para = lines[firstParaIdx]
+  if (/\*\*Vulkan Vegas\*\*/.test(para)) {
+    para = para.replace(/\*\*Vulkan Vegas\*\*/, `[**Vulkan Vegas**](${url})`)
+  } else if (/(^|[^\[\*\w])Vulkan Vegas(?![\w\]\*])/.test(para)) {
+    para = para.replace(/(^|[^\[\*\w])Vulkan Vegas(?![\w\]\*])/, `$1[Vulkan Vegas](${url})`)
+  } else {
+    // First paragraph has no brand mention — append a short link sentence to it.
+    para = para.replace(/\s*$/, '') + ` Sprawdź pełną recenzję na [Vulkan Vegas](${url}).`
   }
-
-  return parts.join('')
+  lines[firstParaIdx] = para
+  return lines.join('\n')
 }
 
 const GRADIENTS: Record<string, [string, string]> = {
