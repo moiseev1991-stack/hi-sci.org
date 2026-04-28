@@ -45,21 +45,32 @@ function slugToPostId(slug: string): number {
   return (h % 9000) + 1000
 }
 
-// Place exactly one "Vulkan Vegas" link in the body — and that link MUST live
-// in the first paragraph (above the fold). All other brand mentions stay as
-// plain text.
-//
-// Behavior:
-//  1. Body already has a link to the money URL anywhere → return as-is (don't add another).
-//  2. First paragraph mentions "Vulkan Vegas" → link the first such occurrence inside it.
-//  3. First paragraph has no mention but body does → append a short sentence with the link to the first paragraph.
-//  4. Body has no mention at all → return as-is, no link.
+// Hard rule: AT MOST ONE outbound money link per article body, and that link
+// MUST live in the first paragraph (above the fold). Algorithm:
+//  1. Strip every existing markdown link to the money URL — turn each back
+//     into plain or bold "Vulkan Vegas" text. This wipes any link that
+//     generation may have placed elsewhere (editor's pick section, etc.).
+//  2. Find the first paragraph (first non-empty, non-heading line block).
+//  3. Inside that paragraph, link the first **Vulkan Vegas** (bold) mention,
+//     or fall back to the first plain mention.
+//  4. If first paragraph has no mention but body does, append a short
+//     sponsored sentence with the link to the first paragraph.
+//  5. If body has no brand mention at all, leave content untouched.
 function linkifyVulkan(content: string): string {
   const url = siteConfig.moneyPageUrl
-  if (content.includes(`(${url})`)) return content
   if (!/Vulkan Vegas/.test(content)) return content
 
-  const lines = content.split('\n')
+  // Step 1: nuke every existing link to moneyPageUrl. Two flavors of label:
+  //   [**Vulkan Vegas**](url)  → **Vulkan Vegas**
+  //   [Vulkan Vegas](url)      → Vulkan Vegas
+  // Also handle any other label that points at moneyPageUrl — keep the inner label.
+  const escUrl = url.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  let stripped = content
+    .replace(new RegExp(`\\[\\*\\*([^\\]]*)\\*\\*\\]\\(${escUrl}\\)`, 'g'), '**$1**')
+    .replace(new RegExp(`\\[([^\\]]*)\\]\\(${escUrl}\\)`, 'g'), '$1')
+
+  // Step 2: locate first paragraph.
+  const lines = stripped.split('\n')
   let firstParaIdx = -1
   for (let i = 0; i < lines.length; i++) {
     const ln = lines[i].trim()
@@ -68,15 +79,15 @@ function linkifyVulkan(content: string): string {
     firstParaIdx = i
     break
   }
-  if (firstParaIdx < 0) return content
+  if (firstParaIdx < 0) return stripped
 
+  // Step 3-4: place exactly one link in the first paragraph.
   let para = lines[firstParaIdx]
   if (/\*\*Vulkan Vegas\*\*/.test(para)) {
     para = para.replace(/\*\*Vulkan Vegas\*\*/, `[**Vulkan Vegas**](${url})`)
   } else if (/(^|[^\[\*\w])Vulkan Vegas(?![\w\]\*])/.test(para)) {
     para = para.replace(/(^|[^\[\*\w])Vulkan Vegas(?![\w\]\*])/, `$1[Vulkan Vegas](${url})`)
   } else {
-    // First paragraph has no brand mention — append a short link sentence to it.
     para = para.replace(/\s*$/, '') + ` Sprawdź pełną recenzję na [Vulkan Vegas](${url}).`
   }
   lines[firstParaIdx] = para
