@@ -45,22 +45,41 @@ function slugToPostId(slug: string): number {
   return (h % 9000) + 1000
 }
 
-// Make every "Vulkan Vegas" mention in the body a link to the money page —
-// but skip occurrences that are already inside a markdown link [...](...).
+// Convert AT MOST ONE "Vulkan Vegas" mention in the body into a link to the
+// money page. The article is allowed exactly one outbound money link, no matter
+// how many times the brand is mentioned. Already-linked occurrences are
+// respected and count toward the cap.
 function linkifyVulkan(content: string): string {
   const url = siteConfig.moneyPageUrl
-  // Split on existing markdown links so we don't touch their label/url.
+  // Already linked anywhere? Respect it as the one allowed link.
+  if (content.includes(`(${url})`)) return content
+
   const parts = content.split(/(\[[^\]]*\]\([^)]+\))/g)
-  return parts
-    .map((part, i) => {
-      if (i % 2 === 1) return part // already a markdown link, leave alone
-      // Bold form: **Vulkan Vegas** → [**Vulkan Vegas**](url)
-      let out = part.replace(/\*\*Vulkan Vegas\*\*/g, `[**Vulkan Vegas**](${url})`)
-      // Plain form: standalone "Vulkan Vegas" not preceded by [/* and not followed by ]/*
-      out = out.replace(/(^|[^\[\*\w])Vulkan Vegas(?![\w\]\*])/g, `$1[Vulkan Vegas](${url})`)
-      return out
-    })
-    .join('')
+  let replaced = false
+
+  // Pass 1: prefer linking the first **Vulkan Vegas** (bold) mention.
+  for (let i = 0; i < parts.length && !replaced; i++) {
+    if (i % 2 === 1) continue // existing markdown link — skip
+    const m = parts[i].match(/\*\*Vulkan Vegas\*\*/)
+    if (m) {
+      parts[i] = parts[i].replace(/\*\*Vulkan Vegas\*\*/, `[**Vulkan Vegas**](${url})`)
+      replaced = true
+    }
+  }
+
+  // Pass 2: if no bold form, link the first plain mention.
+  if (!replaced) {
+    for (let i = 0; i < parts.length && !replaced; i++) {
+      if (i % 2 === 1) continue
+      const m = parts[i].match(/(^|[^\[\*\w])Vulkan Vegas(?![\w\]\*])/)
+      if (m) {
+        parts[i] = parts[i].replace(/(^|[^\[\*\w])Vulkan Vegas(?![\w\]\*])/, `$1[Vulkan Vegas](${url})`)
+        replaced = true
+      }
+    }
+  }
+
+  return parts.join('')
 }
 
 const GRADIENTS: Record<string, [string, string]> = {
