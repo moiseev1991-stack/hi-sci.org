@@ -55,7 +55,7 @@ function slugToPostId(slug: string): number {
 function linkifyVulkan(content: string, currentSlug: string): string {
   const url = siteConfig.moneyPageUrl
   const escUrl = url.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-  const isMoney = (siteConfig.featuredPostSlugs as readonly string[]).includes(currentSlug)
+  const isMoney = ((siteConfig.moneyArticleSlugs ?? siteConfig.featuredPostSlugs) as readonly string[]).includes(currentSlug)
 
   // Step 1 (always): remove every existing markdown link to the money URL.
   let out = content
