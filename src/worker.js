@@ -6,6 +6,19 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url)
 
+    const cfVisitor = request.headers.get('CF-Visitor')
+    let scheme = url.protocol.replace(':', '')
+    if (cfVisitor) {
+      try { scheme = JSON.parse(cfVisitor).scheme || scheme } catch {}
+    }
+    const xfProto = request.headers.get('X-Forwarded-Proto')
+    if (xfProto) scheme = xfProto
+
+    if (scheme === 'http') {
+      url.protocol = 'https:'
+      return Response.redirect(url.toString(), 301)
+    }
+
     if (url.pathname === '/blog' || url.pathname === '/blog/') {
       return Response.redirect(url.origin + '/' + url.search, 301)
     }
