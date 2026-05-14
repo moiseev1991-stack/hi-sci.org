@@ -16,7 +16,13 @@ export default {
 
     if (scheme === 'http') {
       url.protocol = 'https:'
-      return Response.redirect(url.toString(), 301)
+      return new Response(null, {
+        status: 301,
+        headers: {
+          Location: url.toString(),
+          'Cache-Control': 'no-store',
+        },
+      })
     }
 
     if (url.pathname === '/blog' || url.pathname === '/blog/') {
