@@ -27,7 +27,8 @@ jobs:
         run: node scripts/generate-post.mjs
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          OPENAI_MODEL: gpt-4o-mini
+          OPENAI_BASE_URL: https://openrouter.ai/api/v1
+          OPENAI_MODEL: openai/gpt-4o-mini
 
       - name: Commit and push
         run: |

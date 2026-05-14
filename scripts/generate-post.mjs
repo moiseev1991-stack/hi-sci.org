@@ -51,15 +51,24 @@ function readExistingPosts() {
   return { slugs, titles }
 }
 
+const BASE_URL = (process.env.OPENAI_BASE_URL || 'https://api.openai.com/v1').replace(/\/+$/, '')
+const IS_OPENROUTER = /openrouter\.ai/i.test(BASE_URL)
+const DEFAULT_MODEL = IS_OPENROUTER ? 'openai/gpt-4o-mini' : 'gpt-4o-mini'
+
 async function callOpenAI({ messages, jsonMode = false, maxTokens = 6000 }) {
-  const res = await fetch('https://api.openai.com/v1/chat/completions', {
+  const headers = {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${OPENAI_API_KEY}`,
+  }
+  if (IS_OPENROUTER) {
+    headers['HTTP-Referer'] = 'https://hi-sci.org'
+    headers['X-Title'] = 'Hi-Sci'
+  }
+  const res = await fetch(`${BASE_URL}/chat/completions`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${OPENAI_API_KEY}`,
-    },
+    headers,
     body: JSON.stringify({
-      model: process.env.OPENAI_MODEL || 'gpt-4o-mini',
+      model: process.env.OPENAI_MODEL || DEFAULT_MODEL,
       messages,
       max_tokens: maxTokens,
       ...(jsonMode ? { response_format: { type: 'json_object' } } : {}),
